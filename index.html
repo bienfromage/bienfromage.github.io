@@ -19,14 +19,47 @@
       100%{background-color: #ffccff;}
     }
     body{
+      animation: disco 40s infinite;    
+    }
+    @keyframes example {
+      0% {top:0px;}
+      50%{top:100px;}
+      75%{top: 100px;}
+      100%{top:0px;}
+    }
+    img{
+      position: relative;
+      animation-name: example;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+    }
+    a{
       text-align: center;
-      animation: disco 40s infinite;
+      font-family: Courier;
+      text-decoration: none;
+      margin: 10px;
+      margin-top: 0px;
+    }
+    div.main{
+      text-align: center;
+    }
+    div.link{
+      width: 220px;
+      height: 40px;
+      color: white;
+      border-radius: 2px;
+    }
+    div.link:hover{
+      background-color: white;
+      color: black;
     }
   </style>
 </head>
 <body>
-  <h1 style = "font-size: 80px; font-family: Old English Text MT, Papyrus, Arial">Bien Fromage!</h1>
-  <img src = "http://i52.photobucket.com/albums/g23/Killtacular454/CheeseRenderFeathered.png" width: 50%; height: 50%;/>
-
+  <a href = "bienfromage.github.io/miniinvaders"><div class = "link"><div style = "height: 10px"></div>MiniInvaders Project</div></a>
+  <div class = main>
+    <h1 style = "font-size: 80px; font-family: Old English Text MT, Papyrus, Arial;">Bien Fromage!</h1>
+    <img src = "http://i52.photobucket.com/albums/g23/Killtacular454/CheeseRenderFeathered.png"/>
+  </div>
 </body>
 </html>
