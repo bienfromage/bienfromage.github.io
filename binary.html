@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="icon" href="http://www.wikihow.com/images/e/ed/Draw-a-Cartoon-Cheese-Intro.jpg" type="image/jpg">
+    <title>Binary by Bien Fromage</title>
+    <style>
+        body{
+            background-color: black;
+           font-family: "Lucida Console", Monaco, monospace;
+            color: yellow;
+        }
+        div {
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+    <body>
+        <div id = "main"></div>
+        <script>
+
+            document.getElementById("main").style.width = window.innerWidth;
+            var binary = "";
+            function mayhem(){
+                var selection = Math.random();
+                if(selection < 0.5)
+                    binary = "0";
+                else
+                    binary = "1";
+                document.getElementById("main").innerHTML += binary;
+window.scrollTo(0,document.body.scrollHeight);
+            }
+            
+           setInterval(mayhem, 0.25);
+        
+        </script>
+    </body>
+</html>
