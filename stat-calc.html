@@ -9,74 +9,102 @@
     input{
       margin: 5px;
     }
+    #menu>a{
+      display: inline;
+    }
   </style>
 </head>
 <body>
   <script>
     let state = 0;
     let size = 0;
+    let nums = [];
+    let mean,ad,AD,s,Sx;
+    let formType = 0;
 
     function calculate(){
-      if(state == 2){
-        let mean = getMean();
-        let ad = getAvgDeviation(mean);
-        let AD = getAvgDeviationMean(ad);
-        let s = getStandardDeviation(mean);
-        let Sx = getStandardError(s);
-        
-        document.getElementById("answers").innerHTML="<p id='answer'>mean: "+mean+" </p><p>Average Deviation (a.d.): "+ad+"</p><p>Average Deviation from the Mean (A.D.): "+AD+"</p><p>Standard Deviation (s): "+s+"</p><p>Standard Error (Sx): "+Sx+"</p>";
-      }else if(state == 1){
-        let mean = getMean();
-        let ad = getAvgDeviation(mean);
-        let AD = getAvgDeviationMean(ad);
-        let s = getStandardDeviation(mean);
-        let Sx = getStandardError(s);
-        
-        document.getElementById("answers").innerHTML+="<p id='answer'>mean: "+mean+" </p><p>Average Deviation (a.d.): "+ad+"</p><p>Average Deviation from the Mean (A.D.): "+AD+"</p><p>Standard Deviation (s): "+s+"</p><p>Standard Error (Sx): "+Sx+"</p>";
-        document.getElementById("submit-button").value="Recalculate";
-        state++;
-      }else{
-        size = Number(document.getElementById("valueSize").value);
-        let form = document.getElementById("main-form");
-        form.innerHTML="";
-        
-        for(i=0;i<size;i++){
-          form.innerHTML+="Value "+(i+1)+": <input type='number' id='num"+i+"' step='any'><br>";
+      nums = [];
+      
+      if(formType === 0){
+        if(state === 2){
+          getData();
+          printAnswers();
+        }else if(state === 1){
+          getData();
+          printAnswers();
+          document.getElementById("submit-button").value="Recalculate";
+          state++;
+        }else{
+          size = Number(document.getElementById("valueSize").value);
+          let form = document.getElementById("main-form");
+          form.innerHTML="";
+          
+          for(i=0;i<size;i++){
+            form.innerHTML+="Value "+(i+1)+": <input type='number' id='num"+i+"' step='any'><br>";
+          }
+          
+          form.innerHTML+="<input type='submit' value='Calculate!' id='submit-button'>";
+          
+          state++;
         }
+      }else if(formType === 1){
+        nums = document.getElementById('input-box').value.split(",");
+        size = nums.length;
+        for(i=0;i<nums.length;i++)
+          nums[i] = Number(nums[i]);
+        printAnswers();
+        document.getElementById("submit-button").value="Recalculate";
+      }else if(formType === 2){
+        let stringTable = document.getElementById("input-box").value.split(" ");
+        for(i = 0; i<stringTable.length;i++)
+          stringTable[i] = stringTable[i].split("\t");
         
-        form.innerHTML+="<input type='submit' value='Calculate!' id='submit-button'>";
+        if(!stringTable[0])
+          stringTable.splice(0,1);
         
-        state++;
+        for(i=0;i<stringTable.length;i++)
+          for(j=0;j<stringTable[i].length;j++)
+            nums.push(Number(stringTable[i][j]));
+        size=nums.length;
+        
+        printAnswers();
+        document.getElementById("submit-button").value="Recalculate";
       }
       
       return false;
     }
     
+    function getData(){
+      for(i=0;i<size;i++){
+        nums.push(Number(document.getElementById("num"+i).value));
+      }
+    }
+    
     function getMean(){
       let total = 0;
       for(i=0;i<size;i++){
-        total+=Number(document.getElementById("num"+i).value);
+        total+=nums[i];
       }
       return total/size;
     }
     
-    function getDeviation(index,mean){
-      return Math.abs(Number(document.getElementById("num"+index).value)-mean);
+    function getDeviation(index){
+      return Math.abs(nums[index]-mean);
     }
     
-    function getAvgDeviation(mean){
+    function getAvgDeviation(){
       let total = 0;
       for(i=0;i<size;i++){
-        total+=getDeviation(i,mean);
+        total+=getDeviation(i);
       }
       return total/size;
     }
     
-    function getAvgDeviationMean(ad){
+    function getAvgDeviationMean(){
       return ad/Math.sqrt(size);
     }
     
-    function getStandardDeviation(mean){
+    function getStandardDeviation(){
       let total = 0;
       for(i=0;i<size;i++){
         total+=Math.pow(getDeviation(i,mean),2);
@@ -84,18 +112,55 @@
       return Math.sqrt(total/(size-1));
     }
     
-    function getStandardError(s){
+    function getStandardError(){
       return s/Math.sqrt(size);
+    }
+    
+    function printAnswers(){
+      mean = getMean();
+      ad = getAvgDeviation();
+      AD = getAvgDeviationMean();
+      s = getStandardDeviation();
+      Sx = getStandardError();
+      
+      document.getElementById("answers").innerHTML="<p id='answer'>mean: "+mean+" </p><p>Average Deviation (a.d.): "+ad+"</p><p>Average Deviation from the Mean (A.D.): "+AD+"</p><p>Standard Deviation (s): "+s+"</p><p>Standard Error (Sx): "+Sx+"</p><p><b>57.5% confidence limit:</b></p><p>upper: "+(mean+AD)+"</p><p>lower: "+(mean-AD)+"</p><p><b>68.3% confidence limit:</b></p><p>upper: "+(mean+Sx)+"</p><p>lower: "+(mean-Sx)+"</p><p><b>95% confidence limit:</b></p><p>upper: "+(mean+2*Sx)+"</p><p>lower: "+(mean-2*Sx)+"</p>";
+    }
+    
+    function setEntryType(type){
+      let form = document.getElementById("main-form");
+      formType = type;
+      state = 0;
+      switch(type){
+        case 0:
+          form.innerHTML="How many values?<br><input type='number' id='valueSize'><br><input type='submit' value='Submit'>";
+          break;
+        case 1:
+            form.innerHTML="Enter a comma-seperated list<br><input type='text' id='input-box'><br><input type='submit' value='Submit' id ='submit-button'>";
+          break;
+        case 2:
+          form.innerHTML="Copy and paste a table of values into the box below:<br><input type='text' id='input-box'><br><input type='submit' value='Submit' id ='submit-button'>"
+          break;
+      }
     }
   </script>
   
+  <div id="menu">
+    <a href="#" onclick="setEntryType(0)">Calculate from form data</a>
+    <a href="#" onclick="setEntryType(1)">Calculate from comma-seperated list</a>
+    <a href="#" onclick="setEntryType(2)">Copy-paste a table of values</a>
+  </div>
+  
   <h1>Stats Calculator for Physics</h1>
+  
+  
   <form id="main-form" onsubmit="return calculate();">
     How many values?<br>
     <input type="number" id="valueSize">
     <br>
     <input type="submit" value="Submit">
   </form>
-  <div id = "answers"></div>
+  
+  <div id = "answers">
+  </div>
 </body>
 </html>
