@@ -1,132 +1,166 @@
 <!DOCTYPE html>
-<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Bienfromage Project Page">
-  <meta name="keywords" content="HTML,CSS,Java,JavaScript,arjun,quest">
-  <meta name="author" content="bienfromage">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bien Fromage!</title>
-  <link rel = "icon" href = "CheeseRenderFeathered.png" type = "image/png">
+  <title>Stats Calculator for Physics</title>
+  <meta charset="utf-8">
   <style>
-    @keyframes disco{
-      0%{background-color: #ffccff;}
-      10%{background-color: #6666ff;}
-      20%{background-color: yellow;}
-      30%{background-color: #99ff33;}
-      40%{background-color: #993300;}
-      50%{background-color: #99ff33;}
-      60%{background-color: red;}
-      70%{background-color: #996633;}
-      80%{background-color: #99cc00;}
-      98%{background-color: #00ccff;}
-      100%{background-color: #ffccff;}
-    }
     body{
-      animation: disco 40s infinite;    
-    }
-    @keyframes example {
-      0% {top:0px;}
-      50%{top:30px;}
-      75%{top: 30px;}
-      100%{top:0px;}
-    }
-    img{
-      position: relative;
-      animation-name: example;
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
-    }
-    .title{
-      position: fixed;
-      visibility: hidden;
-      opacity: 0;
-      transition: visiblity 0s, opacity 0.5s linear;
-      background-color: white;
-      border-radius: 25px;
-      padding:10px;
-    }
-    a{
-      text-align: center;
-      text-decoration: none;
-      font-family: courier;
-    }
-    div.link{
-      background-color: #ffa500;
-      padding: 5px;
-      width: 150px;
-      border-radius: 15px;
-      color: black;
-      min-height: 48px;
-      transition: background-color 0.5s linear, color 0.5s linear;
-    }
-    div.main{ 
-      text-align: center;
-    }
-    div.link:hover{
-      background-color: #0077cc;
-      color: #ffffff;
-    }
-    div.buffer{
       margin: 10px;
     }
-    .container {
-      display: inline-block;
-      cursor: pointer;
+    input{
+      margin: 5px;
     }
-
-    .bar1, .bar2, .bar3 {
-        width: 35px;
-        height: 5px;
-        background-color: #333;
-        margin: 6px 0;
-        transition: 0.4s;
-    }
-
-    .change .bar1 {
-        transform: rotate(-45deg) translate(-9px, 6px) ;
-    }
-
-    .change .bar2 {opacity: 0;}
-
-    .change .bar3 {
-        transform: rotate(45deg) translate(-8px, -8px) ;
-    }
-    .change .title{
-      visibility:visible;
-      opacity: 1;
+    #menu>a{
+      display: inline;
     }
   </style>
 </head>
 <body>
-  <div class="container" onclick="menu(this)">
-    <div class="bar1"></div>
-    <div class="bar2"></div>
-    <div class="bar3"></div>
-      <div class = "title">
-    <table>
-      <tbody>
-          <tr><div class = "buffer"><a href = "https://bienfromage.github.io/stat-calc"><div class = "link">Physics Statistics Calculator<br>2018</div></a></div></tr>
-          <tr><div class = "buffer"><a href = "https://bienfromage.github.io/vector-chess/"><div class = "link">Vector Chess<br>2018</div></a></div></tr>
-          <tr><div class = "buffer"><a href = "https://github.com/bienfromage/arjun_quest"><div class = "link">Arjun Quest<br>2018<br>(code)</div></a></div></tr>
-          <tr><div class = "buffer"><a href = "https://murmuring-peak-47078.herokuapp.com/"><div class = "link">Bienfromage Chat <br>2017</div></a></div></tr>
-          <tr><div class = "buffer"><a href = "https://bienfromage.github.io/humangeoweb/"><div class = "link">Human Geo Project<br>2017</br></div></a></div></tr>
-          <tr><div class = "buffer"><a href = "https://bienfromage.github.io/miniinvaders/"><div class = "link">MiniInvaders <br>2016</div></a></div></tr>
-      </tbody>
-    </table>
-  </div>
-  </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
-    function menu(x) {
-      x.classList.toggle("change"); 
+    let state = 0;
+    let size = 0;
+    let nums = [];
+    let mean,ad,AD,s,Sx;
+    let formType = 0;
+
+    function calculate(){
+      nums = [];
+      
+      if(formType === 0){
+        if(state === 2){
+          getData();
+          printAnswers();
+        }else if(state === 1){
+          getData();
+          printAnswers();
+          document.getElementById("submit-button").value="Recalculate";
+          state++;
+        }else{
+          size = Number(document.getElementById("valueSize").value);
+          let form = document.getElementById("main-form");
+          form.innerHTML="";
+          
+          for(i=0;i<size;i++){
+            form.innerHTML+="Value "+(i+1)+": <input type='number' id='num"+i+"' step='any'><br>";
+          }
+          
+          form.innerHTML+="<input type='submit' value='Calculate!' id='submit-button'>";
+          
+          state++;
+        }
+      }else if(formType === 1){
+        nums = document.getElementById('input-box').value.split(",");
+        size = nums.length;
+        for(i=0;i<nums.length;i++)
+          nums[i] = Number(nums[i]);
+        printAnswers();
+        document.getElementById("submit-button").value="Recalculate";
+      }else if(formType === 2){
+        let stringTable = document.getElementById("input-box").value.split(" ");
+        for(i = 0; i<stringTable.length;i++)
+          stringTable[i] = stringTable[i].split("\t");
+        
+        if(!stringTable[0])
+          stringTable.splice(0,1);
+        
+        for(i=0;i<stringTable.length;i++)
+          for(j=0;j<stringTable[i].length;j++)
+            nums.push(Number(stringTable[i][j]));
+        size=nums.length;
+        
+        printAnswers();
+        document.getElementById("submit-button").value="Recalculate";
+      }
+      
+      return false;
+    }
+    
+    function getData(){
+      for(i=0;i<size;i++){
+        nums.push(Number(document.getElementById("num"+i).value));
+      }
+    }
+    
+    function getMean(){
+      let total = 0;
+      for(i=0;i<size;i++){
+        total+=nums[i];
+      }
+      return total/size;
+    }
+    
+    function getDeviation(index){
+      return Math.abs(nums[index]-mean);
+    }
+    
+    function getAvgDeviation(){
+      let total = 0;
+      for(i=0;i<size;i++){
+        total+=getDeviation(i);
+      }
+      return total/size;
+    }
+    
+    function getAvgDeviationMean(){
+      return ad/Math.sqrt(size);
+    }
+    
+    function getStandardDeviation(){
+      let total = 0;
+      for(i=0;i<size;i++){
+        total+=Math.pow(getDeviation(i,mean),2);
+      }
+      return Math.sqrt(total/(size-1));
+    }
+    
+    function getStandardError(){
+      return s/Math.sqrt(size);
+    }
+    
+    function printAnswers(){
+      mean = getMean();
+      ad = getAvgDeviation();
+      AD = getAvgDeviationMean();
+      s = getStandardDeviation();
+      Sx = getStandardError();
+      
+      document.getElementById("answers").innerHTML="<p id='answer'>mean: "+mean+" </p><p>Average Deviation (a.d.): "+ad+"</p><p>Average Deviation from the Mean (A.D.): "+AD+"</p><p>Standard Deviation (s): "+s+"</p><p>Standard Error (Sx): "+Sx+"</p><p><b>57.5% confidence limit:</b></p><p>upper: "+(mean+AD)+"</p><p>lower: "+(mean-AD)+"</p><p><b>68.3% confidence limit:</b></p><p>upper: "+(mean+Sx)+"</p><p>lower: "+(mean-Sx)+"</p><p><b>95% confidence limit:</b></p><p>upper: "+(mean+2*Sx)+"</p><p>lower: "+(mean-2*Sx)+"</p>";
+    }
+    
+    function setEntryType(type){
+      let form = document.getElementById("main-form");
+      formType = type;
+      state = 0;
+      switch(type){
+        case 0:
+          form.innerHTML="How many values?<br><input type='number' id='valueSize'><br><input type='submit' value='Submit'>";
+          break;
+        case 1:
+            form.innerHTML="Enter a comma-seperated list<br><input type='text' id='input-box'><br><input type='submit' value='Submit' id ='submit-button'>";
+          break;
+        case 2:
+          form.innerHTML="Copy and paste a table of values into the box below:<br><input type='text' id='input-box'><br><input type='submit' value='Submit' id ='submit-button'>"
+          break;
+      }
     }
   </script>
-  <div id="openButton"></div>
   
-  <div class = main>
-    <h1 style = "font-size: 80px; font-family: Old English Text MT, Arial;">Fromage!</h1>
-    <img src = "CheeseRenderFeathered.png" alt = "Cheese"/>
+  <div id="menu">
+    <a href="#" onclick="setEntryType(0)">Calculate from form data</a>
+    <a href="#" onclick="setEntryType(1)">Calculate from comma-seperated list</a>
+    <a href="#" onclick="setEntryType(2)">Copy-paste a table of values</a>
+  </div>
+  
+  <h1>Stats Calculator for Physics</h1>
+  
+  
+  <form id="main-form" onsubmit="return calculate();">
+    How many values?<br>
+    <input type="number" id="valueSize">
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+  
+  <div id = "answers">
   </div>
 </body>
 </html>
