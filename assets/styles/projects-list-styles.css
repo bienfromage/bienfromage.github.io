@@ -1,0 +1,52 @@
+/*styling for project listing*/
+
+.project-list{
+  position: relative;
+  margin: 10px;
+  color: white;
+}
+
+.project-list a{
+  text-decoration: none;
+}
+
+.project{
+  border-style: none none solid none;
+  border-color: #0e0e0e;
+  color: #0e0e0e;
+  
+  transition: all 0.6s;
+}
+
+.project:hover,
+.project:after{
+  border-color: #acacac;
+  border-radius: 20px;
+}
+
+.project-info{
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow-wrap: break-word;
+}
+
+h1{
+  color: #acacac;
+}
+
+.error-link{
+  display:block;
+  margin:10px auto;
+  padding:10px;
+  border-style:solid;
+  border-radius:10px;
+  color:black;
+  width:100px;
+  transition:all 0.5s;
+}
+
+.error-link:hover,
+.error-link:after{
+  color: #acacac;
+  border-radius:25px;
+}

@@ -1,0 +1,78 @@
+/*Stylesheet for bienfromage project page*/
+body{
+  margin: 0;
+  font-family: arial;
+}
+
+.menu{
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: #0e0e0e;
+  color: #ffffff;
+  width: 100%;
+  z-index:1;
+}
+
+.menu-item,
+.menu-item-dropdown{
+  height:70px;
+  line-height:70px;
+  float:left;
+  text-align: center;
+  width: 120px;
+  cursor: pointer;
+  text-decoration:none;
+  color: white;
+  transition: all 0.5s;
+}
+
+.menu-item:hover,
+.menu-item:after,
+.menu-item-dropdown:hover,
+.menu-item-dropdown:after{
+  color: #acacac;
+}
+
+.dropdown{
+  width:120px;
+  display: none;
+}
+
+.dropdown-link{
+  text-decoration: none;
+  color: #0e0e0e;
+  background-color:#ffffff;
+  display: none;
+  transition: all 0.2s;
+}
+
+.dropdown-link:hover{
+  background-color: #97d8b2;
+}
+
+.menu-item-dropdown:hover .dropdown{
+  display: block;
+}
+
+.menu-item-dropdown:hover .dropdown .dropdown-link{
+  display: block;
+}
+
+.home-icon{
+  float:left;
+  margin: 10px;
+  width:50px;
+}
+
+.main{
+  margin-top: 70px;
+}
+
+.show{
+  display: block;
+}
+
+.selected{
+  color: #97d8b2;
+}
