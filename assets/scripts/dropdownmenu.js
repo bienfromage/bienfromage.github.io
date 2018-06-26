@@ -1,5 +1,5 @@
 //scripts for dropdown menu
-//use in conjunction with assets/styles/styles.css
+//use in conjunction with assets/styles/styles.css, requires JQuery
 
 "use strict";
 
@@ -40,8 +40,7 @@ window.onclick = function(event) {
 
 //make spacing more friendly to browser by determining height with js and adjusting main div accordingly.
 function resize(){
-  //$(".main").css("margin-top",$(".menu").css("height"));
-  document.getElementsByClassName('menu')[0].style.marginTop=document.getElementsByClassName('menu')[0].style.marginTop;
+  $(".main").css("margin-top",$(".menu").css("height"));
 }
 
 resize();
