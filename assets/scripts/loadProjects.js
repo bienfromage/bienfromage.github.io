@@ -5,9 +5,8 @@
 
 function setup(year){
   if(year){
-    //TODO:change to local file before upload
     year=year[1];
-    $.getJSON("http://cheesetech.fun/project-data.json",(jsonString)=>{
+    $.getJSON("project-data.json",(jsonString)=>{
       try{
         $('.project-list').append("<h1>"+year+"</h1>");
         for(let i=0; i<jsonString[year].length;i++){
@@ -37,14 +36,5 @@ function setup(year){
   }
 }
 
-//make spacing more friendly to browser by determining height with js and adjusting main div accordingly.
-function resize(){
-  $(".main").css("margin-top",$(".menu").css("height"));
-}
-
 //get year from querystring and display projects
 setup((new RegExp( '[?&]year=([^&#]*)', 'i' )).exec(window.location.href));
-
-resize();
-//move screen to accomadate changes in size
-window.addEventListener('resize',resize);

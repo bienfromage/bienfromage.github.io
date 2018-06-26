@@ -37,3 +37,13 @@ window.onclick = function(event) {
     }
   }
 };
+
+//make spacing more friendly to browser by determining height with js and adjusting main div accordingly.
+function resize(){
+  //$(".main").css("margin-top",$(".menu").css("height"));
+  document.getElementsByClassName('menu')[0].style.marginTop=document.getElementsByClassName('menu')[0].style.marginTop;
+}
+
+resize();
+//move screen to accomadate changes in size
+window.addEventListener('resize',resize);
