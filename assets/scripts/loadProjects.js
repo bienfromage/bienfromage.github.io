@@ -30,7 +30,7 @@ function setup(year){
         $('.project-list').html(errorMessage);
       }catch(e){
         console.error("Error getting JSON: "+e);
-        $('.project-list').html("<h1>I'm afraid I can't do that dave</h1><div style='text-align:center;color:black;'><img src='assets/images/32px-HAL9000_Better_Reflection.png' alt='HAL 9000'/><p>We couldn't find any projects of that description.");
+        $('.project-list').html("<h1>I'm afraid I can't do that dave</h1><div style='text-align:center;color:black;'><img src='assets/images/32px-HAL9000_Better_Reflection.png' alt='HAL 9000'/><p>Error connecting to data tables</p>");
       }
     });
   }

@@ -1,0 +1,61 @@
+<!--Anyone else ever think about how weird HTML comments look?-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bienfromage</title>
+  <meta charset="utf-8"/>
+  <meta name="description" content="Bienfromage Projects"/>
+  <meta name="keywords" content="bienfromage,github,projects">
+  <meta name="author" content="Adam Traweek">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Bienfromage Projects"/>
+  <meta property="og:description" content="Index of all Bienfromage Projects, from Physics Calculators to Video Games"/>
+  <meta property="og:image" content="https://bienfromage.github.io/assets/images/favicon.png"/>
+  <meta property="og:url" content="https://bienfromage.github.io"/>
+  <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" type="text/css" href="assets/styles/styles.css"/>
+  <link rel="stylesheet" type="text/css" href="assets/styles/carousel.css"/>
+</head>
+<body>
+  <div class ="menu">
+    <a href="https://bienfromage.github.io"><img src="assets/images/favicon.png" alt="favicon" class="home-icon"/></a>
+    <div class="menu-item-dropdown" onclick="openMenu(this)">
+      Projects by Year
+      <div class="dropdown">
+        <a class="dropdown-link" href="projects?year=2018">
+          2018
+        </a>
+        <a class="dropdown-link" href="projects?year=2017">
+          2017
+        </a>
+        <a class="dropdown-link" href="projects?year=2016">
+          2016
+        </a>
+      </div>
+    </div>
+    <a class="menu-item" href="about">About</a>
+    <a class="menu-item" href="https://github.com/bienfromage">GitHub</a>
+  </div>
+  
+  <!--Menu template ends here, begin page specific content-->
+  <div class="main">
+    <h1>Bienfromage Projects - featured</h1>
+    <div id="carousel">
+        <a href="https://bienfromage.github.io/KinematicsCalculator"><img src="assets/images/kinematics_calculator.png" alt="kinematics"/></a>
+        <a href="https://bienfromage.github.io/vector-chess" style='display:none'><img src="assets/images/vector_chess.png" alt="vector chess"/></a>
+        <a href="https://bienfromage.github.io/daedalus" style='display:none'><img src="assets/images/daedalus.png" alt="Daedalus"/></a>
+      <div class="carousel-dot-container">
+        <div class="carousel-dot-flexbox">
+          <!--carousel dot divs will be added here by JavaScript-->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="assets/scripts/jquery-3.3.1.min.js"></script>
+  <script src="assets/scripts/dropdownmenu.js"></script>
+  <script src="assets/scripts/carousel.js"></script>
+</body>
+</html>

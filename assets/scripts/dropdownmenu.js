@@ -3,7 +3,7 @@
 
 "use strict";
 
-//onclick restyle dropdown link, show child dropdown backgroudn and grandchildren links
+//onclick restyle dropdown link, show child dropdown background and grandchildren links
 function openMenu(dropdownToOpen){
   dropdownToOpen.classList.toggle("selected");
   let child = dropdownToOpen.children[0];

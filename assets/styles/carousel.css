@@ -1,7 +1,31 @@
 #carousel{
   text-align: center;
+  background: silver;
 }
-h1{
-  text-align: center;
-  margin-top:100px;
+#carousel a{
+  border-radius: 4px;
+  opacity: 0.4;
+}
+
+#carousel a img{
+  max-width:70%;
+  position: absolute;
+  left: 15%;
+}
+
+.carousel-dot-container{
+  position: relative;
+}
+
+.carousel-dot-flexbox{
+  display:inline-flex;
+}
+
+.carousel-dot{
+  width:10px;
+  height:10px;
+  margin:2px;
+  background-color:white;
+  border-radius: 100%;
+  z-index:2;
 }
