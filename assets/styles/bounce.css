@@ -18,4 +18,5 @@ body>#bouncebox{
 
 #bouncebox{
 	text-align:center;
+	overflow:hidden;
 }
