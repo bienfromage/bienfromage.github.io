@@ -3,6 +3,8 @@
 let elem = document.getElementById("bounce");
 let container = document.getElementById("bouncebox");
 
+$(elem).css("height",window.innerHeight/5+"px");
+
 let x=$(container).width()/2-$(elem).width()/2;
 let y=$(container).height()/2-$(elem).height()/2;
 let velX=0,velY=0,angle=0;
@@ -25,7 +27,7 @@ function loop(){
 		velX*=-1;
 		getY();
 	}
-	if(y>$(container).height()-$(elem).height()-20 || y<10){
+	else if(y>$(container).height()-$(elem).height()-20 || y<10){
 		velY*=-1;
 		getX();
 	}
@@ -45,3 +47,11 @@ function getX(){
 }
 
 setInterval(loop,10);
+
+window.addEventListener('resize',resize);
+
+function resize(){
+	x=$(container).width()/2-$(elem).width()/2;
+	y=$(container).height()/2-$(elem).height()/2;
+	$(elem).css("height",window.innerHeight/5+"px");
+}
